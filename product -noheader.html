@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KM Textiles | Product</title>
-  <link rel="stylesheet" href="nicepage.css" media="screen">
   <style>
     :root {
+     /* --primary: #b19777; */
       --primary: #86afc0;
       --bg: #f9f9f9;
       --text: #333;
@@ -21,12 +21,17 @@
       padding: 0;
     }
 
-    /* Header styling */
-    .page-header {
+    header {
       text-align: center;
+      padding: 2rem 1rem;
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      padding: 1rem 0;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin: 0;
     }
 
     .container {
@@ -81,34 +86,10 @@
       line-height: 1.6;
     }
 
-    .btns {
-      margin-top: 1rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .add-btn,
-    .quote-btn {
-      background: var(--primary);
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: var(--radius);
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .add-btn:hover,
-    .quote-btn:hover {
-      background: #a17a55;
-    }
-
     .back-btn {
       display: inline-block;
-      background: #b19777;
+      margin-top: 1.5rem;
+      background: var(--primary);
       color: white;
       padding: 0.6rem 1.2rem;
       border-radius: var(--radius);
@@ -129,32 +110,8 @@
 </head>
 <body>
 
-  <!-- ORIGINAL HEADER FROM PRODUCTS.HTML -->
-  <header class="u-clearfix u-header u-header" id="sec-0168">
-    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-      <a href="./" class="u-image u-logo u-image-1" data-image-width="262" data-image-height="181">
-        <img src="images/K-removebgcropped.png" class="u-logo-image u-logo-image-1" alt="KM Textiles Logo">
-      </a>
-      <nav class="u-dropdown-icon u-menu u-menu-dropdown u-offcanvas u-menu-1" data-responsive-from="MD" role="navigation">
-        <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
-          <a class="u-button-style u-hamburger-link" href="#" tabindex="-1" aria-label="Open menu" aria-controls="07e9">
-            <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
-            <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px">
-              <g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect></g>
-            </svg>
-          </a>
-        </div>
-        <div class="u-custom-menu u-nav-container">
-          <ul class="u-nav u-unstyled u-nav-1">
-            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="./">Home</a></li>
-            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="About.html">About Us</a></li>
-            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="Services.html">Services</a></li>
-            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="Products.html">Products</a></li>
-            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="Contact.html">Contact Us</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+  <header>
+    <h1>KM Textiles Product</h1>
   </header>
 
   <div class="container">
@@ -166,6 +123,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       const sheetUrl = 'https://opensheet.elk.sh/1N3OOLKqY38zrxxvzigMVSokeu5hHBSEgHhlTWAsv_S8/products';
       const container = document.getElementById('productContainer');
+
       const urlParams = new URLSearchParams(window.location.search);
       const productId = urlParams.get('id');
 
@@ -184,6 +142,7 @@
             return;
           }
 
+          /* oya change
           container.innerHTML = `
             <div class="product-details">
               <div class="product-image">
@@ -193,14 +152,29 @@
                 <h2>${product.Name}</h2>
                 <div class="price">$${product["Regular price"] || "—"}</div>
                 <div class="desc">${product.Description || "No description available."}</div>
-                <div class="btns">
-                  <button class="add-btn" onclick="addToCart('${product.id}', '${product.Name}', '${product["Regular price"] || "—"}')">Add to Quote</button>
-                  <a href="cart.html" class="quote-btn">Request Quote</a>
-                  <a href="products.html" class="back-btn">← Back to Shop</a>
-                </div>
+                <a href="shop.html" class="back-btn">← Back to Shop</a>
               </div>
             </div>
           `;
+          */
+
+          container.innerHTML = `
+  <div class="product-details">
+    <div class="product-image">
+      ${product.Image ? `<img src="${product.Image}" alt="${product.Name}">` : '<span>No Image</span>'}
+    </div>
+    <div class="product-info">
+      <h2>${product.Name}</h2>
+      <div class="price">$${product["Regular price"] || "—"}</div>
+      <div class="desc">${product.Description || "No description available."}</div>
+      <div class="btns">
+        <button class="add-btn" onclick="addToCart('${product.id}', '${product.Name}', '${product["Regular price"] || "—"}')">Add to Quote</button>
+        <a href="products.html" class="back-btn">← Back to Shop</a>
+      </div>
+    </div>
+  </div>
+`;
+
         })
         .catch(err => {
           container.innerHTML = '<p>Unable to load product.</p>';
@@ -209,16 +183,17 @@
     });
 
     function addToCart(id, name, price) {
-      const cart = JSON.parse(localStorage.getItem('quoteCart') || '[]');
-      if (!cart.find(item => item.id === id)) {
-        cart.push({ id, name, price });
-        localStorage.setItem('quoteCart', JSON.stringify(cart));
-        alert(`${name} added to quote.`);
-      } else {
-        alert(`${name} is already in your quote.`);
-      }
-    }
+  const cart = JSON.parse(localStorage.getItem('quoteCart') || '[]');
+  if (!cart.find(item => item.id === id)) {
+    cart.push({ id, name, price });
+    localStorage.setItem('quoteCart', JSON.stringify(cart));
+    alert(`${name} added to quote.`);
+  } else {
+    alert(`${name} is already in your quote.`);
+  }
+}
   </script>
 
 </body>
 </html>
+

@@ -214,45 +214,6 @@
   }
   .chat-input button{white-space:nowrap}
   .note-muted{font-size:12px; color:#6c7a88}
-
-  /* oya add pagination style */
-
-  /* Pagination */
-.pagination{
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.page-btn, .page-number{
-  border: 1px solid #d0d8e3;
-  background: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  color: var(--slate);
-  transition: 0.2s;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-
-.page-number.active{
-  background: var(--brand);
-  color: #fff;
-  border-color: var(--brand);
-}
-
-.page-btn:hover:not(.disabled),
-.page-number:hover:not(.active){
-  background: #f2f7fb;
-}
-
-.page-btn.disabled{
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
 </style>
 </head>
 
@@ -363,20 +324,32 @@
               <tr><th>Client Name</th><th>Status</th><th>Notes</th><th>Author</th></tr>
             </thead>
             <tbody id="manifestBody">
-              <!-- result from sheet comes here -->
+              <tr>
+                <td>Parkdale Mills</td>
+                <td><span class="status s-pending">Pending</span></td>
+                <td>Spinning line upgrade inquiry</td>
+                <td>System</td>
+              </tr>
+              <tr>
+                <td>Elevate Textiles</td>
+                <td><span class="status s-review">In Review</span></td>
+                <td>Sample trials requested</td>
+                <td>Eric</td>
+              </tr>
+              <tr>
+                <td>Milliken &amp; Company</td>
+                <td><span class="status s-closed">Closed</span></td>
+                <td>Order finalized — install in April</td>
+                <td>Eric</td>
+              </tr>
+              <tr>
+                <td>Unifi Manufacturing</td>
+                <td><span class="status s-pending">Pending</span></td>
+                <td>Budget confirmation underway</td>
+                <td>System</td>
+              </tr>
             </tbody>
           </table>
-          <!-- oya add pagination-->
-           <!-- Pagination (dummy) -->
-              <div class="pagination">
-                <button class="page-btn disabled">« Prev</button>
-                <button class="page-number active">1</button>
-                <button class="page-number">2</button>
-                <label>...</label>
-                <button class="page-number">7</button>
-                <button class="page-btn">Next »</button>
-              </div>
-
 
           <!-- Update Manifest Form -->
           <form id="entryForm">
@@ -515,12 +488,6 @@
 
     // Placeholder: POST to Apps Script Web App endpoint for Sheet1
     // fetch('https://script.google.com/macros/s/EXEC_URL/exec', { method:'POST', body: JSON.stringify(payload) })
-    fetch("https://script.google.com/macros/s/AKfycbxXHPHnxom4YTYvyKAGLv5cxNUX4OwmvAuf607wwYX-QdJ44G0opfXYE5tK9CeGAyHIBQ/exec", {
-          method: "POST",
-          body: JSON.stringify(payload)
-        })
-
-
 
     // Immediate UX feedback
     document.getElementById('formMsg').textContent = "✅ Entry received and will be validated by back office.";
@@ -564,32 +531,6 @@
   });
 
   chatInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); chatSend.click(); } });
-
-async function loadManifest(){
-  const res = await fetch("https://script.google.com/macros/s/AKfycbxXHPHnxom4YTYvyKAGLv5cxNUX4OwmvAuf607wwYX-QdJ44G0opfXYE5tK9CeGAyHIBQ/exec");
-  const data = await res.json();
-  const tbody = document.getElementById("manifestBody");
-  tbody.innerHTML = "";
-
-  data.forEach(row =>{
-    tbody.innerHTML += `
-      <tr>
-        <td>${row.client}</td>
-        <td><span class="status ${
-          row.status === "Pending" ? "s-pending" :
-          row.status === "In Review" ? "s-review" :
-          row.status === "Closed" ? "s-closed" : "s-escalated"
-        }">${row.status}</span></td>
-        <td>${row.notes}</td>
-        <td>${row.author}</td>
-      </tr>
-    `;
-  });
-}
-
-loadManifest();
-
-
 </script>
 </body>
 </html>
