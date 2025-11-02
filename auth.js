@@ -1,7 +1,9 @@
 // Preset users (you can edit/add as many as you want)
 const users = [
   { username: "admin", password: "12345", firstName: "John", lastName: "Doe" },
-  { username: "sarah", password: "98765", firstName: "Sarah", lastName: "Brown" }
+  { username: "sarah", password: "98765", firstName: "Sarah", lastName: "Brown" },
+  { username: "brenda.seumalo@kmtextiles.com", password: "LWTsn@70", firstName: "Brenda", lastName: "Seumalo" },
+  { username: "jessica.valencia@kmtextiles.com", password: "LWTsn@70", firstName: "Jessica", lastName: "Valencia" }
 ];
 
 // 🔐 Login function

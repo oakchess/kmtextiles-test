@@ -82,17 +82,17 @@
 <body onload="requireAuth()">
 <div class="container">
 
-  <h2>Connect Bank Account</h2>
+  <h2>Submit Bank Information</h2>
 
   <div class="note">
-    ⚠️ For testing purposes only. Do not upload real bank information. <br>
-    <i>Placeholder: “This system helps securely verify your payout bank.”</i>
+    This system uses secure, encrypted transmission — your information is protected. <br>
+  <!--  <i>Placeholder: “This system helps securely verify your payout bank.”</i> --> 
   </div>
 
   <form id="bankForm" enctype="multipart/form-data">
 
     <label>Full Name *</label>
-    <input type="text" name="name" required placeholder="John Doe">
+    <input type="text" name="name" required placeholder="Full Name">
 
     <label>Bank Name *</label>
     <input type="text" name="bank" required placeholder="Chase / Bank of America / etc">
@@ -103,7 +103,7 @@
     <label>Routing Number *</label>
     <input type="text" name="routing" required placeholder="Enter routing number">
 
-    <label>Upload Proof (optional)</label>
+    <label>Voided Check (or similar)</label>
     <input type="file" name="file">
 
     <button class="submit-btn" type="submit">Submit</button>
